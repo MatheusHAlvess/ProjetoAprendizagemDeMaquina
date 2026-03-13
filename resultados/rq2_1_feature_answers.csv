@@ -1,0 +1,6 @@
+feature_set,f1_mean,fairness_penalty_mean,answer_focus,test_bias_bucket
+C_com_protegido,0.9910708404994691,149.75402387536252,melhor_equilibrio_global,
+B_sem_protegido,0.9932316215691511,214.89331624142406,melhor_desempenho_global,
+C_com_protegido,0.9819294074606302,1330.9016648035042,melhor_por_nivel_de_vies,alto
+B_sem_protegido,0.9989349827307168,0.26268375695950313,melhor_por_nivel_de_vies,baixo
+B_sem_protegido,0.9922176392802342,3.9473381859033734,melhor_por_nivel_de_vies,medio

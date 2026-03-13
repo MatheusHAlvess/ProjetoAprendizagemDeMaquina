@@ -1,0 +1,119 @@
+Projeto Tema 2 - Resumo automático
+Interpretação adotada para os 10 ciclos: cada uma das 10 bases é usada uma vez como base de treino e testada nas demais.
+FAST_MODE=True
+ATENÇÃO: os resultados foram gerados em FAST_MODE; use execução completa antes da versão final de entrega.
+
+=== Diagnóstico de viés das bases ===
+ dataset   rows  fraud_rate  bias_level_name bias_bucket_name  representation_rate_privileged  representation_rate_unprivileged  fraud_rate_privileged  fraud_rate_unprivileged  positive_label_gap  positive_label_di  n_privileged  n_unprivileged  class_imbalance  abs_class_imbalance
+   gs_v0 148123    0.179256             0.00            baixo                        0.457684                          0.542316               0.193296                 0.248717            0.055421           1.286714         23508           27855        -0.084633             0.084633
+gs_v0_25 159481    0.215236             0.25            baixo                        0.224564                          0.775436               0.322964                 0.233445           -0.089520           0.722819         16395           56613        -0.550871             0.550871
+ gs_v0_5 159481    0.215236             0.50            medio                        0.097533                          0.902467               0.300263                 0.246142           -0.054121           0.819753         10644           98488        -0.804933             0.804933
+gs_v0_75 159481    0.215236             0.75            medio                        0.027819                          0.972181               0.000000                 0.225179            0.225179                NaN          3618          126437        -0.944362             0.944362
+   gs_v1 131008    0.153945             1.00             alto                        0.000000                          1.000000                    NaN                 0.153945                 NaN                NaN             0          131008        -1.000000             1.000000
+   pd_v0 169144    0.231944             0.00            baixo                        0.634261                          0.365739               0.282644                 0.081094           -0.201550           0.286913         32334           18645         0.268522             0.268522
+pd_v0_25 168219    0.252385             0.25            baixo                        0.720620                          0.279380               0.157199                 0.507585            0.350386           3.228939         49307           19116         0.441241             0.441241
+ pd_v0_5 148752    0.155474             0.50            medio                        0.727285                          0.272715               0.015637                 0.696806            0.681169          44.561360         61201           22949         0.454569             0.454569
+pd_v0_75 147264    0.198827             0.75            medio                        0.680874                          0.319126               0.039892                 0.752274            0.712382          18.857903         74602           34966         0.361748             0.361748
+   pd_v1 149991    0.201245             1.00             alto                        0.705691                          0.294309               0.000000                 0.874978            0.874978                NaN         82719           34498         0.411382             0.411382
+
+=== RQ 2.1 - comparação global entre conjuntos de features ===
+    feature_set  f1_mean   f1_std  fairness_penalty_mean  spd_abs_mean  eod_abs_mean  aaod_mean  di_distance_mean  roc_auc_mean  pr_auc_mean  selection_score
+C_com_protegido 0.991071 0.014968             149.754024      0.360530      0.000378   0.000520        507.095657      0.999926     0.999617      -148.762953
+C_sem_protegido 0.992919 0.014942             170.490332      0.360512      0.000145   0.000238        577.080505      0.999915     0.999527      -169.497413
+B_com_protegido 0.990376 0.014935             182.940430      0.360604      0.001062   0.001509        619.092889      0.999862     0.999302      -181.950054
+B_sem_protegido 0.993232 0.013427             214.893316      0.360640      0.000306   0.000646        726.935070      0.999864     0.999242      -213.900085
+A_com_protegido 0.967086 0.042561             284.981876      0.375301      0.097423   0.051772        944.838924      0.997151     0.982035      -284.014790
+A_sem_protegido 0.983278 0.019890             292.620135      0.368891      0.004933   0.010302        937.115871      0.998998     0.995547      -291.636858
+
+=== RQ 2.1 - comparação por nível de viés da base de teste ===
+    feature_set test_bias_bucket  f1_mean  fairness_penalty_mean  spd_abs_mean  eod_abs_mean  aaod_mean  di_distance_mean  n
+A_com_protegido             alto 0.965548            2466.413778      0.861959           NaN   0.006204       7398.373172 18
+A_com_protegido            baixo 0.957873               2.008818      0.206412      0.092592   0.068153          7.668115 36
+A_com_protegido            medio 0.977068              22.596959      0.422526      0.103865   0.046782        105.402403 36
+A_sem_protegido             alto 0.977143            2584.829737      0.868283           NaN   0.000934       7753.619996 18
+A_sem_protegido            baixo 0.977558               0.284432      0.197503      0.006021   0.020478          0.913726 36
+A_sem_protegido            medio 0.992064              11.903439      0.415430      0.003483   0.002468         45.333295 36
+B_com_protegido             alto 0.982466            1629.617922      0.874545           NaN   0.002126       4887.977096 18
+B_com_protegido            baixo 0.995277               0.263426      0.174498      0.001331   0.001824          0.876049 36
+B_com_protegido            medio 0.989430               3.948062      0.418226      0.000702   0.001039         20.420606 36
+B_sem_protegido             alto 0.983853            1917.199758      0.874636           NaN   0.002295       5750.722344 18
+B_sem_protegido            baixo 0.998935               0.262684      0.174593      0.000422   0.000645          0.875075 36
+B_sem_protegido            medio 0.992218               3.947338      0.418188      0.000151   0.000236         20.419304 36
+C_com_protegido             alto 0.981929            1330.901665      0.874446           NaN   0.000633       3991.829915 18
+C_com_protegido            baixo 0.996654               0.263006      0.174299      0.000577   0.000636          0.876514 36
+C_com_protegido            medio 0.990058               3.958131      0.418281      0.000112   0.000375         20.476429 36
+C_sem_protegido             alto 0.982043            1517.534934      0.874562           NaN   0.000422       4551.729818 18
+C_sem_protegido            baixo 0.999437               0.262690      0.174281      0.000202   0.000253          0.876021 36
+C_sem_protegido            medio 0.991840               3.956825      0.418230      0.000068   0.000176         20.470045 36
+
+=== RQ 2.1 - síntese pronta para discussão ===
+    feature_set  f1_mean  fairness_penalty_mean             answer_focus test_bias_bucket
+C_com_protegido 0.991071             149.754024 melhor_equilibrio_global              NaN
+B_sem_protegido 0.993232             214.893316 melhor_desempenho_global              NaN
+C_com_protegido 0.981929            1330.901665 melhor_por_nivel_de_vies             alto
+B_sem_protegido 0.998935               0.262684 melhor_por_nivel_de_vies            baixo
+B_sem_protegido 0.992218               3.947338 melhor_por_nivel_de_vies            medio
+
+=== RQ 2.1 - testes estatísticos entre feature sets ===
+          metric    test  statistic       pvalue  n_groups                                                                                               groups
+              f1 kruskal 160.217702 8.895265e-33         6 A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido
+fairness_penalty kruskal   4.713464 4.518400e-01         6 A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido
+             spd kruskal   0.236953 9.986637e-01         6 A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido
+             eod kruskal   8.117722 1.498660e-01         6 A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido
+            aaod kruskal 194.687891 3.886544e-40         6 A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido
+              di kruskal   0.659524 9.851161e-01         6 A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido
+
+Critério de seleção do feature set fixo: maior (F1 médio - fairness_penalty médio) entre os conjuntos sem atributo protegido.
+Feature set fixo escolhido para RQ 2.2: C_sem_protegido
+
+=== Eta escolhido por base de treino ===
+train_dataset  chosen_eta
+        gs_v0        50.0
+     gs_v0_25         1.0
+      gs_v0_5         0.0
+     gs_v0_75         0.0
+        gs_v1         0.0
+        pd_v0         0.0
+     pd_v0_25         0.0
+      pd_v0_5         0.0
+     pd_v0_75         0.0
+        pd_v1         0.0
+
+=== RQ 2.2 - Prejudice Remover agregado por eta ===
+ eta  f1_mean  fairness_penalty_mean  spd_abs_mean  eod_abs_mean  aaod_mean  di_distance_mean  n
+ 0.0 0.757029              60.563963      0.325554      0.339408   0.168123        234.650479 40
+ 1.0 0.838401               2.465073      0.384080      0.083009   0.093022          8.606517  8
+50.0 0.952659               9.158979      0.391236      0.033281   0.029243         28.313768  8
+
+=== RQ 2.2 - Prejudice Remover por nível de viés da base de teste ===
+test_bias_bucket  eta  f1_mean  fairness_penalty_mean  spd_abs_mean  eod_abs_mean  aaod_mean  di_distance_mean  n
+            alto  0.0 0.923038             437.572014      0.776482           NaN   0.058435       2186.187909  5
+            alto  1.0 0.926277              14.045961      0.775238           NaN   0.017127         41.345518  1
+            alto 50.0 0.959590              38.911143      0.815534           NaN   0.007036        115.910859  1
+           baixo  0.0 0.673469               0.373911      0.174368      0.331546   0.208587          0.804221 18
+           baixo  1.0 0.717144               0.287229      0.270812      0.078286   0.164352          0.635468  3
+           baixo 50.0 0.930234               0.332327      0.258376      0.002907   0.038086          1.029941  3
+           medio  0.0 0.796679              13.409885      0.353008      0.351201   0.157541         63.811760 17
+           medio  1.0 0.907375               1.203234      0.371241      0.087732   0.058498          5.664566  4
+           medio 50.0 0.967746               8.340926      0.384808      0.063656   0.028162         26.877365  4
+
+=== Comparação direta: baseline vs Prejudice Remover ===
+      model_stage test_bias_bucket  f1_mean  fairness_penalty_mean  spd_abs_mean  eod_abs_mean  aaod_mean  di_distance_mean  n
+         baseline             alto 0.982043            1517.534934      0.874562           NaN   0.000422       4551.729818 18
+prejudice_remover             alto 0.928723             320.116739      0.781883           NaN   0.045191       1343.164021  7
+         baseline            baixo 0.999437               0.262690      0.174281      0.000202   0.000253          0.876021 36
+prejudice_remover            baixo 0.711024               0.357878      0.196925      0.258808   0.181745          0.811652 24
+         baseline            medio 0.991840               3.956825      0.418230      0.000068   0.000176         20.470045 36
+prejudice_remover            medio 0.841761              10.645787      0.361013      0.259365   0.120993         45.912918 25
+
+=== Diagnóstico de erros do Prejudice Remover ===
+Validação de eta:
+error
+Falha no Prejudice Remover: too many indices for array: array is 1-dimensional, but 2 were indexed    8
+Base de treino sem ambos os grupos protegidos (1 e 4).                                                1
+
+Teste PR:
+error
+Base de teste sem ambos os grupos protegidos (1 e 4).    7
+
+A comparação baseline vs PR considera apenas resultados válidos do Prejudice Remover.

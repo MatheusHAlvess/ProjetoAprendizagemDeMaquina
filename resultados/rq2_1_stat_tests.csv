@@ -1,0 +1,7 @@
+metric,test,statistic,pvalue,n_groups,groups
+f1,kruskal,160.21770197607816,8.895265061389384e-33,6,"A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido"
+fairness_penalty,kruskal,4.713463994175176,0.4518400491081065,6,"A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido"
+spd,kruskal,0.23695261584288912,0.9986637458230653,6,"A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido"
+eod,kruskal,8.117722184392557,0.1498659552889758,6,"A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido"
+aaod,kruskal,194.687891016782,3.886544493846123e-40,6,"A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido"
+di,kruskal,0.6595235521188896,0.9851160508911803,6,"A_com_protegido, A_sem_protegido, B_com_protegido, B_sem_protegido, C_com_protegido, C_sem_protegido"

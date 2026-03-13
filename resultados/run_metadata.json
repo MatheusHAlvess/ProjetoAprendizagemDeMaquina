@@ -1,0 +1,29 @@
+{
+  "data_dir": "/content",
+  "output_dir": "/content/saida_fairness",
+  "datasets_loaded": [
+    "gs_v0",
+    "gs_v0_25",
+    "gs_v0_5",
+    "gs_v0_75",
+    "gs_v1",
+    "pd_v0",
+    "pd_v0_25",
+    "pd_v0_5",
+    "pd_v0_75",
+    "pd_v1"
+  ],
+  "chosen_feature_set": "C_sem_protegido",
+  "fixed_feature_set_policy": "melhor selection_score entre os conjuntos *_sem_protegido",
+  "eta_grid": [
+    0.0,
+    1.0,
+    10.0,
+    50.0
+  ],
+  "f1_drop_tolerance": 0.15,
+  "fast_mode": true,
+  "use_cache": true,
+  "pr_validation_max_rows": 30000,
+  "max_pr_train_rows": 15000
+}
